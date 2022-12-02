@@ -10,3 +10,4 @@ INSERT INTO CHARACTERS Values ('Jaime Lanniser','266AC',NULL,'Widows wail',31);
 INSERT INTO CHARACTERS Values ('Arya Stark,','289AC',NULL,'Needle',11);
 INSERT INTO CHARACTERS Values ('Sandor Clegane','298AC',NULL ,'Greatsword',27);
 INSERT INTO CHARACTERS Values ('Brienne of Tarth','280AC',NULL,'Widows wail',17);
+

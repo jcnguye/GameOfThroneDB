@@ -1,0 +1,15 @@
+INSERT INTO `contains` VALUES('Harrenhal', 'The Riverlands');
+INSERT INTO `contains` VALUES('Castle Black', 'The North');
+INSERT INTO `contains` VALUES('The Dreadfort', 'The North');
+INSERT INTO `contains` VALUES('Moat Cailin', 'The North');
+INSERT INTO `contains` VALUES('The Twins', 'The Riverlands');
+INSERT INTO `contains` VALUES('The Red Keep', 'The Crownlands');
+INSERT INTO `contains` VALUES('Winterfell', 'The North');
+INSERT INTO `contains` VALUES('Horn Hill', 'The Reach');
+INSERT INTO `contains` VALUES('Casterly Rock', 'The Reach');
+INSERT INTO `contains` VALUES('Pyke', 'Iron Islands');
+INSERT INTO `contains` VALUES('Riverrun', 'The Riverlands');
+INSERT INTO `contains` VALUES('Highgarden', 'The Reach');
+INSERT INTO `contains` VALUES('The Eyrie', 'The Vale of Arryn');
+INSERT INTO `contains` VALUES('The Water Gardens', 'Dorne');
+INSERT INTO `contains` VALUES('Bear Island', 'The North');

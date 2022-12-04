@@ -187,7 +187,7 @@ public class GotApp {
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
             //UPDATE tableName SET arg1 = arg2 WHERE arg3 = arg 4
-            ps = connection.prepareStatement("UPDATE " + tableName + " SET (? = ?) WHERE ? = ?");
+            ps = connection.prepareStatement("UPDATE " + tableName + " SET (? = ?) WHERE (? = ?)");
             ps.setString(1,arg1);
             ps.setString(2,arg2);
             ps.setString(3,arg3);
@@ -228,7 +228,7 @@ public class GotApp {
             ps.setString(2,arg2);
 
             if (ps.executeUpdate() > 0) {
-                System.out.println("SUCESS!!");
+                System.out.println("SUCCESS!!");
             }
 
             System.out.println("Deleted Record: " + arg1 + " from " + tableName);
@@ -267,7 +267,7 @@ public class GotApp {
             ps.setString(4,weapon);
             ps.setInt(5,Integer.parseInt(age));
             if (ps.executeUpdate() > 0) {
-                System.out.println("SUCESS!!");
+                System.out.println("SUCCESS!!");
             }
             System.out.println("Inserted data: "+name+ " "+DOB+ " "+DOD+ " "+weapon+" "+age);
             ps.clearParameters();
@@ -324,7 +324,7 @@ public class GotApp {
             ps.setString(1,c1);
             ps.setString(2,c2);
             if (ps.executeUpdate() > 0) {
-                System.out.println("SUCESS!!");
+                System.out.println("SUCCESS!!");
             }
             System.out.println("Inserted data: "+c1+ " "+c2);
             System.out.println();
@@ -347,7 +347,7 @@ public class GotApp {
             ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?)");
             ps.setString(1,locationName);
             if (ps.executeUpdate() > 0) {
-                System.out.println("SUCESS!!");
+                System.out.println("SUCCESS!!");
             }
             System.out.println("Inserted data: "+locationName);
             ps.clearParameters();

@@ -9,25 +9,38 @@ public class GotApp {
     private static PreparedStatement ps;
     public static void main(String []args){
 
-        System.out.println("Game of Throne Application\n");
-        System.out.println("Enter Driver");
-
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String user = args[1];
+        String password = args[2];
+        String url = "jdbc:mysql://localhost:3306/got";
+        String table = args[4];
+        String Choice = args[3];
+        System.out.println("Table entered:\t"+ table);
         try {
-            Class.forName(args[0]);
+            Class.forName(driver);
         }catch (Exception E){
             E.printStackTrace();
         }
 
-        if(args.equals("Add")){
-            
-        }else if (args.equals("Delete")) {
-            
-        }else if (args.equals("Modify")){
-            
-        }else if (args.equals("Search")){
-            
-        } else if (args.equals("Display")) {
-            
+        switch (Choice) {
+            case "AllTables":
+
+                break;
+            case "AddCharacters": //Adding to tables that are characters, knights, lords, commoner, monarchs
+                //adding table
+                //
+                break;
+            case "Delete":
+                break;
+            case "Modify":
+
+                break;
+            case "Search":
+
+                break;
+            case "Display":
+                displayTables(url,user,password,table);
+                break;
         }
 
         try{
@@ -63,7 +76,7 @@ public class GotApp {
      * @param weapon Weapons for tables
      * @param age for tables
      */
-    public void add(String url, String user, String password,String type, String name, String DOB, String DOD,String weapon, String age){
+    public void add1(String url, String user, String password,String type, String name, String DOB, String DOD,String weapon, String age){
         try {
 
             connection = DriverManager.getConnection(url, user, password);
@@ -87,8 +100,28 @@ public class GotApp {
         }
     }
 
-    public void displayTables(){
+    public static void displayTables(String url, String user, String password, String table){
         System.out.println("List of tables in Game of thrones database");
+
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select * from "+ table);
+            ResultSetMetaData rsMetaData = resultSet.getMetaData();
+            for(int i = 1; i<=rsMetaData.getColumnCount(); i++){
+//                System.out.println(rsMetaData.getColumnName(i));
+                System.out.println(rsMetaData.getTableName(i));
+                for(int k = 0;  k <= rsMetaData.getColumnCount(); k++){
+
+                }
+            }
+
+//            while (resultSet.next()){
+//                System.out.println(resultSet.getString());
+//            }
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
     }
 
 

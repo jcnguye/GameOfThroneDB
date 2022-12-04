@@ -139,10 +139,10 @@ public class GotApp {
                 break;
                 //--------------------------All methods above pretaining to add
             case "Delete":
-                //deleteRecord(url,user,password,tableName,args[5]);
+                deleteRecord(url,user,password,tableName,args[5],args[6]);
                 break;
             case "Modify":
-                //modifyRecord(url,user,password,tableName,args[5],args[6]);
+                modifyRecord(url,user,password,tableName,args[5],args[6],args[7],args[8]);
                 break;
             case "Search":
                 searching(url,user,password,tableName,args[5],args[6]);

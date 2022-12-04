@@ -1,6 +1,7 @@
 package GameOfThroneApp;
 
 import java.sql.*;
+import java.util.Scanner;
 
 public class GotApp {
     private static ResultSet resultSet = null;
@@ -8,6 +9,7 @@ public class GotApp {
     private static Statement statement = null;
     private static PreparedStatement ps;
     public static void main(String []args){
+        Scanner scan = new Scanner(System.in);
 
         String driver = "com.mysql.cj.jdbc.Driver";
         String user = args[1];
@@ -26,9 +28,21 @@ public class GotApp {
             case "AllTables":
 
                 break;
-            case "AddCharacters": //Adding to tables that are characters, knights, lords, commoner, monarchs
-                //adding table
-                //
+            case "AddCharacter":
+                System.out.println("Please Input Character Name: ");
+                String name = scan.nextLine();
+                System.out.println("Please Input Character Date of Birth: ");
+                int DOB = scan.nextInt();
+                System.out.println("Please Input Character Date of Death: ");
+                int DOD = scan.nextInt();
+                System.out.println("Please Input Character Weapon: ");
+                String weapon = scan.nextLine();
+                System.out.println("Please Input Character Age: ");
+                int age = scan.nextInt();
+
+                //addCharacter(url, user, password, type, name, DOB, DOD, weapon, age);
+
+
                 break;
             case "Delete":
                 break;
@@ -69,19 +83,19 @@ public class GotApp {
      * @param url for connection
      * @param user for connection
      * @param password for connection
-     * @param type of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param tableName name of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
      * @param name name for tables
      * @param DOB Date of birth for tables
      * @param DOD Date of death for tables
      * @param weapon Weapons for tables
      * @param age for tables
      */
-    public void add1(String url, String user, String password,String type, String name, String DOB, String DOD,String weapon, String age){
+    public void addCharacter(String url, String user, String password,String tableName, String name, String DOB, String DOD,String weapon, String age){
         try {
 
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
-            ps = connection.prepareStatement("INSERT INTO" + type +"values (?,?,?,?,?)");
+            ps = connection.prepareStatement("INSERT INTO" + tableName +"values (?,?,?,?,?)");
             ps.setString(1,name);
             ps.setString(2,DOB);
             ps.setString(3,DOD);
@@ -89,7 +103,7 @@ public class GotApp {
             ps.setInt(5,Integer.parseInt(age));
             if (ps.executeUpdate() > 0) {
                 System.out.println("SUCESS!!");
-                System.out.println("Inserted into: "+ type);
+                System.out.println("Inserted into: "+ tableName);
             }
             ps.clearParameters();
             ps.close();

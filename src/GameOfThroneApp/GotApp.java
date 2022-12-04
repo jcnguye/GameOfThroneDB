@@ -103,37 +103,39 @@ public class GotApp {
                 addCharacter(url,user,password,tableName,name,DOB,DOD,weapon,age); //add character format cli name dob dod weapon age
                 break;
             case "AddHouses":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddLocatedin":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                System.out.println(args[5]);
+                System.out.println(args[6]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddKingsGuard_to":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddContains":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddFrom":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddbelongTo":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddLordShipOver":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddPledgeTo":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddSeatOfPower":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddSwearsLoyaltyTo":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
             case "AddWards":
-                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                addTableColumn2(url,user,password,tableName,args[5],args[6]);
                 break;
                 //--------------------------All methods above pretaining to add
             case "Delete":
@@ -141,6 +143,7 @@ public class GotApp {
             case "Modify":
                 break;
             case "Search":
+                searching(url,user,password,tableName,args[5],args[6]);
                 break;
             case "DisplayTable":
                 displayTable(url,user,password,tableName);
@@ -180,7 +183,7 @@ public class GotApp {
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
-            resultSet = dbmd.getTables(null, null, "customer", null);
+            resultSet = dbmd.getTables(null, null, tableName, null);
             ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?,?,?,?,?)");
             ps.setString(1,name);
             ps.setString(2,DOB);
@@ -200,21 +203,54 @@ public class GotApp {
         }
 
     }
-    public static void addTableColumn2(String url, String user, String password, String tableName,String houseName,String Sigil, String words){
+    public static void searching(String url, String user, String password, String tableName, String name, String SpecificName){
+        System.out.println("Searching " + tableName);
+
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+
+            String sql = "Select *\n" +
+                    "from characters\n" +
+                    "where Name = 'Jon Snow'";
+            String p1 = "Select *\n";
+            String p2 = "from " + tableName + "\n";
+            String p3 = "where " + name + " = " + SpecificName;
+            String sql2 = p1 + " " + p2 + " "+p3;
+            resultSet = statement.executeQuery(sql2);
+            ResultSetMetaData rsMetaData = resultSet.getMetaData();
+            for (int i=1; i <= rsMetaData.getColumnCount(); i++) {
+                System.out.print(rsMetaData.getColumnLabel(i) + "\t\t\t");
+            }
+            System.out.println("");
+            while (resultSet.next()){
+                for (int i=1; i <= rsMetaData.getColumnCount(); i++) {
+                    Object obj = resultSet.getObject(i);
+                    if (obj != null)
+                        System.out.print(resultSet.getObject(i).toString() + "\t\t\t");
+                }
+                System.out.println("");
+
+            }
+
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
+    }
+    public static void addTableColumn2(String url, String user, String password, String tableName,String c1, String c2){
         try {
             System.out.println("Inserted into "+ tableName);
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
-            resultSet = dbmd.getTables(null, null, "customer", null);
-            ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?,?,?)");
-            ps.setString(1,houseName);
-            ps.setString(2,Sigil);
-            ps.setString(3,words);
+            resultSet = dbmd.getTables(null, null, tableName, null);
+            ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?,?)");
+            ps.setString(1,c1);
+            ps.setString(2,c2);
             if (ps.executeUpdate() > 0) {
                 System.out.println("SUCESS!!");
             }
-            System.out.println("Inserted data: "+houseName+ " "+Sigil+ " "+words);
+            System.out.println("Inserted data: "+c1+ " "+c2);
             System.out.println();
             displayTable(url,user,password, tableName);
             ps.clearParameters();
@@ -231,7 +267,7 @@ public class GotApp {
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
-            resultSet = dbmd.getTables(null, null, "customer", null);
+            resultSet = dbmd.getTables(null, null, tableName, null);
             ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?)");
             ps.setString(1,locationName);
             if (ps.executeUpdate() > 0) {

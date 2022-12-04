@@ -18,7 +18,7 @@ public class GotApp {
         String Choice = args[3];
         String tableName = args[4];
 
-        System.out.println("\t\t\t\t\t\tGAME OF THRONE");
+        System.out.println("\t\t\t\t\t\tGAME OF THRONES");
         System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣴⣯⣿⣶⣶⣶⠖⠒⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡄⠀⠀⠠⣦⣀⣛⣛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡄⢀⣀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣾⣿⣶⣶⣤⡄⠀⠉⢩⣿⣿⣿⣿⣛⠫⠙⠂⣻⣿⣿⣷⡌⠙⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
@@ -187,7 +187,7 @@ public class GotApp {
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
             //UPDATE tableName SET arg1 = arg2 WHERE arg3 = arg 4
-            ps = connection.prepareStatement("UPDATE" + tableName + " SET (? = ?) WHERE (? = ?)");
+            ps = connection.prepareStatement("UPDATE " + tableName + " SET (? = ?) WHERE ? = ?");
             ps.setString(1,arg1);
             ps.setString(2,arg2);
             ps.setString(3,arg3);
@@ -223,7 +223,7 @@ public class GotApp {
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
-            ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE (? = ?)");
+            ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE ? = ?");
             ps.setString(1,arg1);
             ps.setString(2,arg2);
 

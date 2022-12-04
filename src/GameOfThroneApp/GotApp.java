@@ -1,5 +1,6 @@
 package GameOfThroneApp;
 
+import java.security.PublicKey;
 import java.sql.*;
 
 public class GotApp {
@@ -10,11 +11,12 @@ public class GotApp {
     public static void main(String []args){
 
         String driver = "com.mysql.cj.jdbc.Driver";
-        String user = args[2];
-        String password = args[3];
-        String url = args[1];
-        String tableName = args[5];
-        String Choice = args[4];
+        String url = args[0];
+        String user = args[1];
+        String password = args[2];
+        String Choice = args[3];
+        String tableName = args[4];
+
         System.out.println("\t\t\tGAME OF THRONE");
         System.out.println(" <>=======() \n" +
                 "(/\\___   /|\\\\          ()==========<>_\n" +
@@ -31,6 +33,9 @@ public class GotApp {
                 "                 (((~) \\  /\n" +
                 "                 ______/ /\n" +
                 "                 '------'");
+        for (String arg : args) {
+            System.out.println(arg);
+        }
 
         try {
             Class.forName(driver);
@@ -39,10 +44,23 @@ public class GotApp {
         }
 
         switch (Choice) {
-            case "AllTables":
+            case "AddCastleCitieProvince":
+                addCastleCitiProv(url,user,password,tableName,args[5]);
                 break;
             case "AddCharacters": //Adding to tables that are characters, knights, lords, commoner, monarchs
-                addCharacter(url,user,password,args[6],args[7],args[8],args[9],args[10],args[11]);
+                String name = args[5];
+                String DOB = args[6];
+                String DOD = args[7];
+                String weapon = args[8];
+                String age = args[9];//max 9
+                System.out.println(args[5]);
+                if(args.length != 10){
+                    System.out.println("Incorrect format");
+                    return;
+                }
+                addCharacter(url,user,password,tableName,name,DOB,DOD,weapon,age); //add character format cli name dob dod weapon age
+                break;
+            case "locatedin":
                 break;
             case "Delete":
                 break;
@@ -53,12 +71,6 @@ public class GotApp {
             case "displayTable":
                 displayTable(url,user,password,tableName);
                 break;
-        }
-
-        try{
-            Class.forName(args[0]);
-        }catch (Exception exec){
-            exec.printStackTrace();
         }
         try {
             if(connection!= null){
@@ -81,19 +93,21 @@ public class GotApp {
      * @param url for connection
      * @param user for connection
      * @param password for connection
-     * @param type of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
      * @param name name for tables
      * @param DOB Date of birth for tables
      * @param DOD Date of death for tables
      * @param weapon Weapons for tables
      * @param age for tables
      */
-    public static void addCharacter(String url, String user, String password, String type, String name, String DOB, String DOD, String weapon, String age){
+    public static void addCharacter(String url, String user, String password, String tableName, String name, String DOB, String DOD, String weapon, String age){
         try {
-
+            System.out.println("Inserted into "+ tableName);
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
-            ps = connection.prepareStatement("INSERT INTO" + type +"values (?,?,?,?,?)");
+            DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
+            resultSet = dbmd.getTables(null, null, "customer", null);
+            ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?,?,?,?,?)");
             ps.setString(1,name);
             ps.setString(2,DOB);
             ps.setString(3,DOD);
@@ -101,8 +115,30 @@ public class GotApp {
             ps.setInt(5,Integer.parseInt(age));
             if (ps.executeUpdate() > 0) {
                 System.out.println("SUCESS!!");
-                System.out.println("Inserted into: "+ type);
             }
+            System.out.println("Inserted data: "+name+ " "+DOB+ " "+DOD+ " "+weapon+" "+age);
+            ps.clearParameters();
+            ps.close();
+            connection.close();
+            statement.close();
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
+
+    }
+    public static void addCastleCitiProv(String url, String user, String password, String tableName,String locationName){
+        try {
+            System.out.println("Inserted into "+ tableName);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
+            resultSet = dbmd.getTables(null, null, "customer", null);
+            ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?)");
+            ps.setString(1,locationName);
+            if (ps.executeUpdate() > 0) {
+                System.out.println("SUCESS!!");
+            }
+            System.out.println("Inserted data: "+locationName);
             ps.clearParameters();
             ps.close();
             connection.close();
@@ -111,7 +147,6 @@ public class GotApp {
             exec.printStackTrace();
         }
     }
-
     public static void displayTable(String url, String user, String password, String table){
         System.out.println("Table from " + table);
 

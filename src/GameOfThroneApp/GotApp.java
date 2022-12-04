@@ -43,7 +43,7 @@ public class GotApp {
             case "AllTables":
                 break;
             case "AddCharacters": //Adding to tables that are characters, knights, lords, commoner, monarchs
-                add1(url,user,password,args[6],args[7],args[8],args[9],args[10],args[11] );
+                addCharacter(url,user,password,args[6],args[7],args[8],args[9],args[10],args[11]);
                 break;
             case "Delete":
                 break;
@@ -91,7 +91,7 @@ public class GotApp {
      * @param weapon Weapons for tables
      * @param age for tables
      */
-    public static void add1(String url, String user, String password,String type, String name, String DOB, String DOD,String weapon, String age){
+    public static void addCharacter(String url, String user, String password, String type, String name, String DOB, String DOD, String weapon, String age){
         try {
 
             connection = DriverManager.getConnection(url, user, password);
@@ -124,11 +124,8 @@ public class GotApp {
             resultSet = statement.executeQuery("select * from "+ table);
             ResultSetMetaData rsMetaData = resultSet.getMetaData();
             for(int i = 1; i<=rsMetaData.getColumnCount(); i++){
-//                System.out.println(rsMetaData.getColumnName(i));
-                System.out.println(rsMetaData.getTableName(i));
-                for(int k = 0;  k <= rsMetaData.getColumnCount(); k++){
+                System.out.println(rsMetaData.getColumnName(i));
 
-                }
             }
 
 //            while (resultSet.next()){

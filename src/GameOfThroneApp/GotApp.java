@@ -74,7 +74,7 @@ public class GotApp {
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣧⠀⡼⠁⠈⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣴⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠁⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("\t\t\t\t\t\tGAME OF THRONE");
+        System.out.println("\t\t\t\t\t\tGAME OF THRONES");
         for (String arg : args) {
             System.out.println(arg);
         }
@@ -176,7 +176,7 @@ public class GotApp {
      */
     public static void deleteRecord(String url, String user, String password, String tableName, String name){
         try {
-            System.out.println("Inserted into "+ tableName);
+            System.out.println("Deleting From "+ tableName);
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();

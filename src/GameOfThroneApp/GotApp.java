@@ -102,15 +102,47 @@ public class GotApp {
                 }
                 addCharacter(url,user,password,tableName,name,DOB,DOD,weapon,age); //add character format cli name dob dod weapon age
                 break;
-            case "locatedin":
+            case "AddHouses":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
                 break;
+            case "AddLocatedin":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddKingsGuard_to":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddContains":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddFrom":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddbelongTo":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddLordShipOver":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddPledgeTo":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddSeatOfPower":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddSwearsLoyaltyTo":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+            case "AddWards":
+                addTableColumn2(url,user,password,tableName,args[5],args[6],args[7]);
+                break;
+                //--------------------------All methods above pretaining to add
             case "Delete":
                 break;
             case "Modify":
                 break;
             case "Search":
                 break;
-            case "displayTable":
+            case "DisplayTable":
                 displayTable(url,user,password,tableName);
                 break;
         }
@@ -167,6 +199,31 @@ public class GotApp {
             exec.printStackTrace();
         }
 
+    }
+    public static void addTableColumn2(String url, String user, String password, String tableName,String houseName,String Sigil, String words){
+        try {
+            System.out.println("Inserted into "+ tableName);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
+            resultSet = dbmd.getTables(null, null, "customer", null);
+            ps = connection.prepareStatement("INSERT INTO " + tableName + " values (?,?,?)");
+            ps.setString(1,houseName);
+            ps.setString(2,Sigil);
+            ps.setString(3,words);
+            if (ps.executeUpdate() > 0) {
+                System.out.println("SUCESS!!");
+            }
+            System.out.println("Inserted data: "+houseName+ " "+Sigil+ " "+words);
+            System.out.println();
+            displayTable(url,user,password, tableName);
+            ps.clearParameters();
+            ps.close();
+            connection.close();
+            statement.close();
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
     }
     public static void addCastleCitiProv(String url, String user, String password, String tableName,String locationName){
         try {

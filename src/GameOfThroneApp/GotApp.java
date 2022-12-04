@@ -16,7 +16,6 @@ public class GotApp {
         String tableName = args[5];
         String Choice = args[4];
         System.out.println("\t\t\tGAME OF THRONE");
-
         System.out.println(" <>=======() \n" +
                 "(/\\___   /|\\\\          ()==========<>_\n" +
                 "      \\_/ | \\\\        //|\\   ______/ \\)\n" +
@@ -48,13 +47,11 @@ public class GotApp {
             case "Delete":
                 break;
             case "Modify":
-
                 break;
             case "Search":
-
                 break;
-            case "Display":
-                displayTables(url,user,password,tableName);
+            case "displayTable":
+                displayTable(url,user,password,tableName);
                 break;
         }
 
@@ -115,22 +112,29 @@ public class GotApp {
         }
     }
 
-    public static void displayTables(String url, String user, String password, String table){
-        System.out.println("List of tables in Game of thrones database");
+    public static void displayTable(String url, String user, String password, String table){
+        System.out.println("Table from " + table);
 
         try {
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
+
             resultSet = statement.executeQuery("select * from "+ table);
             ResultSetMetaData rsMetaData = resultSet.getMetaData();
-            for(int i = 1; i<=rsMetaData.getColumnCount(); i++){
-                System.out.println(rsMetaData.getColumnName(i));
-
+            for (int i=1; i <= rsMetaData.getColumnCount(); i++) {
+                System.out.print(rsMetaData.getColumnLabel(i) + "\t\t\t");
             }
+            System.out.println("");
+                while (resultSet.next()){
+                    for (int i=1; i <= rsMetaData.getColumnCount(); i++) {
+                        Object obj = resultSet.getObject(i);
+                        if (obj != null)
+                            System.out.print(resultSet.getObject(i).toString() + "\t\t\t");
+                    }
+                    System.out.println("");
 
-//            while (resultSet.next()){
-//                System.out.println(resultSet.getString());
-//            }
+                }
+
         }catch (Exception exec){
             exec.printStackTrace();
         }

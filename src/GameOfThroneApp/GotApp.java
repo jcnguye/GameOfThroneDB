@@ -139,9 +139,10 @@ public class GotApp {
                 break;
                 //--------------------------All methods above pretaining to add
             case "Delete":
-                deleteRecord(url,user,password,tableName,args[5]);
+                //deleteRecord(url,user,password,tableName,args[5]);
                 break;
             case "Modify":
+                //modifyRecord(url,user,password,tableName,args[5],args[6]);
                 break;
             case "Search":
                 searching(url,user,password,tableName,args[5],args[6]);
@@ -167,28 +168,70 @@ public class GotApp {
     }
 
     /**
+     * Method to update and modify tables
      * method for deleting records in table
      * @param url for connection
      * @param user for connection
      * @param password for connection
      * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
-     * @param name name for tables
+     * @param arg1 first argument in SET clause within update statement
+     * @param arg2 second argument in SET clause within update statement
+     * @param arg3 first argument in WHERE clause within update statement
+     * @param arg4 second argument in WHERE clause within update statement
      */
-    public static void deleteRecord(String url, String user, String password, String tableName, String name){
+    public static void modifyRecord(String url, String user, String password, String tableName, String arg1, String arg2, String arg3, String arg4){
+        try {
+            System.out.println("Modifying "+ tableName);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
+            resultSet = dbmd.getTables(null, null, tableName, null);
+            //UPDATE tableName SET arg1 = arg2 WHERE arg3 = arg 4
+            ps = connection.prepareStatement("UPDATE" + tableName + " SET (? = ?) WHERE (? = ?)");
+            ps.setString(1,arg1);
+            ps.setString(2,arg2);
+            ps.setString(3,arg3);
+            ps.setString(4,arg4);
+
+            if (ps.executeUpdate() > 0) {
+                System.out.println("SUCESS!!");
+            }
+
+            System.out.println("Updated " + tableName + " where " + arg1 + " = " + arg2 + " and " + arg3 + " = " + arg4);
+            ps.clearParameters();
+            ps.close();
+            connection.close();
+            statement.close();
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
+    }
+
+    /**
+     * method for deleting records in table
+     * @param url for connection
+     * @param user for connection
+     * @param password for connection
+     * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param arg1 first argument in WHERE clause within delete statement
+     * @param arg2 second argument in WHERE clause within delete statement
+     */
+    public static void deleteRecord(String url, String user, String password, String tableName, String arg1, String arg2){
         try {
             System.out.println("Deleting From "+ tableName);
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
-            ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE (Name = ?)");
-            ps.setString(1,name);
+            ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE (? = ?)");
+            ps.setString(1,arg1);
+            ps.setString(2,arg2);
 
             if (ps.executeUpdate() > 0) {
                 System.out.println("SUCESS!!");
             }
 
-            System.out.println("Deleted Record: " + name + " from " + tableName);
+            System.out.println("Deleted Record: " + arg1 + " from " + tableName);
             ps.clearParameters();
             ps.close();
             connection.close();

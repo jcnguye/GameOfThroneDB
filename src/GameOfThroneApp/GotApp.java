@@ -10,12 +10,29 @@ public class GotApp {
     public static void main(String []args){
 
         String driver = "com.mysql.cj.jdbc.Driver";
-        String user = args[1];
-        String password = args[2];
-        String url = "jdbc:mysql://localhost:3306/got";
-        String table = args[4];
-        String Choice = args[3];
-        System.out.println("Table entered:\t"+ table);
+        String user = args[2];
+        String password = args[3];
+        String url = args[1];
+        String tableName = args[5];
+        String Choice = args[4];
+        System.out.println("\t\t\tGAME OF THRONE");
+
+        System.out.println(" <>=======() \n" +
+                "(/\\___   /|\\\\          ()==========<>_\n" +
+                "      \\_/ | \\\\        //|\\   ______/ \\)\n" +
+                "        \\_|  \\\\      // | \\_/\n" +
+                "          \\|\\/|\\_   //  /\\/\n" +
+                "           (oo)\\ \\_//  /\n" +
+                "          //_/\\_\\/ /  |\n" +
+                "         @@/  |=\\  \\  |\n" +
+                "              \\_=\\_ \\ |\n" +
+                "                \\==\\ \\|\\_    \n" +
+                "             __(\\===\\(  )\\\n" +
+                "            (((~) __(_/   |\n" +
+                "                 (((~) \\  /\n" +
+                "                 ______/ /\n" +
+                "                 '------'");
+
         try {
             Class.forName(driver);
         }catch (Exception E){
@@ -24,11 +41,9 @@ public class GotApp {
 
         switch (Choice) {
             case "AllTables":
-
                 break;
             case "AddCharacters": //Adding to tables that are characters, knights, lords, commoner, monarchs
-                //adding table
-                //
+                add1(url,user,password,args[6],args[7],args[8],args[9],args[10],args[11] );
                 break;
             case "Delete":
                 break;
@@ -39,7 +54,7 @@ public class GotApp {
 
                 break;
             case "Display":
-                displayTables(url,user,password,table);
+                displayTables(url,user,password,tableName);
                 break;
         }
 
@@ -76,7 +91,7 @@ public class GotApp {
      * @param weapon Weapons for tables
      * @param age for tables
      */
-    public void add1(String url, String user, String password,String type, String name, String DOB, String DOD,String weapon, String age){
+    public static void add1(String url, String user, String password,String type, String name, String DOB, String DOD,String weapon, String age){
         try {
 
             connection = DriverManager.getConnection(url, user, password);
@@ -123,6 +138,4 @@ public class GotApp {
             exec.printStackTrace();
         }
     }
-
-
 }

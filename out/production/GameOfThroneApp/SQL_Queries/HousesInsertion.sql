@@ -1,0 +1,13 @@
+INSERT INTO HOUSES VALUES('Algood', 'A golden wreath  on blue, a gold border', NULL);
+INSERT INTO HOUSES VALUES('Allyrion of Godsgrace', 'A golden hand on gyronny red and black', 'No Foe May Pass');
+INSERT INTO HOUSES VALUES('Amber', NULL, NULL);
+INSERT INTO HOUSES VALUES('Ambrose', 'A yellow field strewn with red ants', 'Never resting');
+INSERT INTO HOUSES VALUES('Andrik of Southshield', NULL, NULL);
+INSERT INTO HOUSES VALUES('Appleton of Appleton', 'Quarterly: An apple tree on yellow, a grey gatehouse on white', NULL);
+INSERT INTO HOUSES VALUES('Arryn of the Eyrie', 'a sky-blue falcon soaring against a white moon, on sky- blue', 'As High as Honor');
+INSERT INTO HOUSES VALUES('Ashfor of Ashford', 'A white sun-and-chevron on orange', 'Our Sun Shines Bright');
+INSERT INTO HOUSES VALUES('Baratheon of Storms End', 'A crowned stag black on a golden field', 'Ours is the Fury');
+INSERT INTO HOUSES VALUES('Beesbury of Honeyholt', 'Three yellow beehives on a black pale', 'Beware Our Sting');
+INSERT INTO HOUSES VALUES('Bolton of the Dreadfort', 'A red flayed man on pale pink, spotted with red blood drops', 'Our Blades Are Sharp');
+INSERT INTO HOUSES VALUES('Buckwell of the Antlers', 'A rack of golden antlers on vair', 'Pride and Purpose');
+INSERT INTO HOUSES VALUES('Bulwer of Blackcrown', 'A bull skull, bone on blood', 'Death before Disgrace');

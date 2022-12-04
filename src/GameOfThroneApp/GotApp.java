@@ -139,6 +139,7 @@ public class GotApp {
                 break;
                 //--------------------------All methods above pretaining to add
             case "Delete":
+                deleteRecord(url,user,password,tableName,args[5]);
                 break;
             case "Modify":
                 break;
@@ -163,6 +164,38 @@ public class GotApp {
             sexc.printStackTrace();
         }
 
+    }
+
+    /**
+     * method for deleting records in table
+     * @param url for connection
+     * @param user for connection
+     * @param password for connection
+     * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param name name for tables
+     */
+    public static void deleteRecord(String url, String user, String password, String tableName, String name){
+        try {
+            System.out.println("Inserted into "+ tableName);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
+            resultSet = dbmd.getTables(null, null, tableName, null);
+            ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE (Name = ?)");
+            ps.setString(1,name);
+
+            if (ps.executeUpdate() > 0) {
+                System.out.println("SUCESS!!");
+            }
+
+            System.out.println("Deleted Record: " + name + " from " + tableName);
+            ps.clearParameters();
+            ps.close();
+            connection.close();
+            statement.close();
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
     }
 
     /**

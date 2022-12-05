@@ -167,6 +167,8 @@ public class GotApp {
 
     }
 
+
+
     /**
      * Method to update and modify tables
      * method for deleting records in table
@@ -224,9 +226,8 @@ public class GotApp {
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
-            
+
             ps = connection.prepareStatement("DELETE FROM " + tableName + " WHERE ?=?");
-            //ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE " + arg1+ "="+arg2);
             ps.setString(1,arg1);
             ps.setString(2,arg2);
 
@@ -234,7 +235,7 @@ public class GotApp {
                 System.out.println("SUCCESS!!");
             }
 
-            System.out.println("Deleted Record: " + arg1 + " from " + tableName);
+            System.out.println("Deleted Record: " + arg2 + " from " + tableName);
             ps.clearParameters();
             ps.close();
             connection.close();
@@ -282,6 +283,16 @@ public class GotApp {
         }
 
     }
+
+    /**
+     *
+     * @param url for connection
+     * @param user for connection
+     * @param password for connection
+     * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param name name for tables
+     * @param SpecificName
+     */
     public static void searching(String url, String user, String password, String tableName, String name, String SpecificName){
         System.out.println("Searching " + tableName);
 
@@ -316,6 +327,16 @@ public class GotApp {
             exec.printStackTrace();
         }
     }
+
+    /**
+     *
+     * @param url for connection
+     * @param user for connection
+     * @param password for connection
+     * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param c1 column one
+     * @param c2 column two
+     */
     public static void addTableColumn2(String url, String user, String password, String tableName,String c1, String c2){
         try {
             System.out.println("Inserted into "+ tableName);

@@ -145,7 +145,7 @@ public class GotApp {
                 modifyRecord(url,user,password,tableName,args[5],args[6],args[7],args[8]);
                 break;
             case "Search":
-                searching(url,user,password,tableName,args[5],args[6]);
+                select(url,user,password,tableName,args[5],args[6]);
                 break;
             case "DisplayTable":
                 displayTable(url,user,password,tableName);
@@ -168,7 +168,33 @@ public class GotApp {
     }
 
 
+    public static void select(String url, String user, String password, String tableName, String arg1, String arg2){
+        try {
+            System.out.println("Selecting "+ tableName);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
+            resultSet = dbmd.getTables(null, null, tableName, null);
 
+            String sql = "SELECT * FROM " + tableName + " WHERE " + arg1 + "=" + arg2;
+            System.out.println("SELECT * FROM " + tableName + " WHERE " + arg1 + "=" + arg2);
+            statement.executeQuery(sql);
+
+            // UPDATE tableName SET arg1 = arg2 WHERE arg3 = arg 4
+            // ps = connection.prepareStatement("UPDATE " + tableName + " SET (? = ?) WHERE (? = ?)");
+            // ps.setString(1,arg1);
+            // ps.setString(2,arg2);
+            // ps.setString(3,arg3);
+            // ps.setString(4,arg4);
+
+
+
+            connection.close();
+            statement.close();
+        }catch (Exception exec){
+            exec.printStackTrace();
+        }
+    }
     /**
      * Method to update and modify tables
      * method for deleting records in table
@@ -354,6 +380,15 @@ public class GotApp {
             exec.printStackTrace();
         }
     }
+
+    /**
+     *
+     * @param url for connection
+     * @param user for connection
+     * @param password for connection
+     * @param tableName of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     * @param locationName name of location
+     */
     public static void addCastleCitiProv(String url, String user, String password, String tableName,String locationName){
         try {
             System.out.println("Inserted into "+ tableName);
@@ -375,6 +410,14 @@ public class GotApp {
             exec.printStackTrace();
         }
     }
+
+    /**
+     * displays table
+     * @param url for connection
+     * @param user for connection
+     * @param password for connection
+     * @param table name of table (accounting for characters, knights, lords, commoner, monarchs) due to similar tables
+     */
     public static void displayTable(String url, String user, String password, String table){
         System.out.println("Table from " + table);
 

@@ -178,14 +178,22 @@ public class GotApp {
 
             String sql = "SELECT * FROM " + tableName + " WHERE " + arg1 + "=" + arg2;
             System.out.println("SELECT * FROM " + tableName + " WHERE " + arg1 + "=" + arg2);
-            statement.executeQuery(sql);
 
-            // UPDATE tableName SET arg1 = arg2 WHERE arg3 = arg 4
-            // ps = connection.prepareStatement("UPDATE " + tableName + " SET (? = ?) WHERE (? = ?)");
-            // ps.setString(1,arg1);
-            // ps.setString(2,arg2);
-            // ps.setString(3,arg3);
-            // ps.setString(4,arg4);
+            resultSet = statement.executeQuery(sql);
+            ResultSetMetaData rsMetaData = resultSet.getMetaData();
+            for (int i=1; i <= rsMetaData.getColumnCount(); i++) {
+                System.out.print(rsMetaData.getColumnLabel(i) + "\t\t\t");
+            }
+            System.out.println("");
+            while (resultSet.next()){
+                for (int i=1; i <= rsMetaData.getColumnCount(); i++) {
+                    Object obj = resultSet.getObject(i);
+                    if (obj != null)
+                        System.out.print(resultSet.getObject(i).toString() + "\t\t\t");
+                }
+                System.out.println("");
+
+            }
 
 
 

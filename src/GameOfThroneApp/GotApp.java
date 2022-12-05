@@ -201,8 +201,7 @@ public class GotApp {
             // ps.setString(4,arg4);
 
             System.out.println("Updated " + tableName + " where " + arg1 + " = " + arg2 + " and " + arg3 + " = " + arg4);
-            ps.clearParameters();
-            ps.close();
+
             connection.close();
             statement.close();
         }catch (Exception exec){
@@ -230,13 +229,6 @@ public class GotApp {
             String sql = "DELETE FROM " + tableName + " WHERE " + arg1 + "=" + arg2;
             System.out.println("DELETE FROM " + tableName + " WHERE " + arg1 + "=" + arg2);
             statement.executeUpdate(sql);
-
-            //ps = connection.prepareStatement("DELETE FROM " + tableName + " WHERE ?=?");
-            //ps.setString(1,arg1);
-            //ps.setString(2,arg2);
-
-
-
 
             System.out.println("Deleted Record: " + arg2 + " from " + tableName);
             connection.close();

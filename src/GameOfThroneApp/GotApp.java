@@ -227,17 +227,18 @@ public class GotApp {
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
 
-            ps = connection.prepareStatement("DELETE FROM " + tableName + " WHERE ?=?");
-            ps.setString(1,arg1);
-            ps.setString(2,arg2);
+            String sql = "DELETE FROM " + tableName + " WHERE " + arg1 + "=" + arg2;
+            System.out.println("DELETE FROM " + tableName + " WHERE " + arg1 + "=" + arg2);
+            statement.executeUpdate(sql);
 
-            if (ps.executeUpdate() > 0) {
-                System.out.println("SUCCESS!!");
-            }
+            //ps = connection.prepareStatement("DELETE FROM " + tableName + " WHERE ?=?");
+            //ps.setString(1,arg1);
+            //ps.setString(2,arg2);
+
+
+
 
             System.out.println("Deleted Record: " + arg2 + " from " + tableName);
-            ps.clearParameters();
-            ps.close();
             connection.close();
             statement.close();
         }catch (Exception exec){

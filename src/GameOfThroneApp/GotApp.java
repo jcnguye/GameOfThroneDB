@@ -198,8 +198,6 @@ public class GotApp {
             // ps.setString(3,arg3);
             // ps.setString(4,arg4);
 
-
-
             System.out.println("Updated " + tableName + " where " + arg1 + " = " + arg2 + " and " + arg3 + " = " + arg4);
             ps.clearParameters();
             ps.close();
@@ -226,7 +224,8 @@ public class GotApp {
             statement = connection.createStatement();
             DatabaseMetaData dbmd = (DatabaseMetaData) connection.getMetaData();
             resultSet = dbmd.getTables(null, null, tableName, null);
-            ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE ?=?");
+            
+            ps = connection.prepareStatement("DELETE FROM " + tableName + " WHERE ?=?");
             //ps = connection.prepareStatement("DELETE FROM" + tableName + " WHERE " + arg1+ "="+arg2);
             ps.setString(1,arg1);
             ps.setString(2,arg2);
